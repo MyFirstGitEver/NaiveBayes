@@ -89,19 +89,30 @@ class TextProcessing{
 class NaiveBayes {
     private final HashMap<String, TextProcessing.FrequencyTable> table;
     private final int positiveOccurrences, negativeOccurrences;
-    NaiveBayes(List<Pair<List<String>, Integer>> dataset) {
+    private int wordsInPositive, wordsInNegative, positiveCount, negativeCount;
+
+    static float checkPos = 0;
+    static float checkNeg = 0;
+    NaiveBayes(List<Pair<List<String>, Integer>> dataset, int positiveCount, int negativeCount) {
         HashMap<String, TextProcessing.FrequencyTable> table = new HashMap<>();
 
         int positiveOccurrences = 0, negativeOccurrences = 0;
         for(Pair<List<String>, Integer> pair : dataset) {
             for(String word : pair.first) {
                 if(!table.containsKey(word)) {
+                    if(pair.second == 0){
+                        wordsInNegative++;
+                    }
+                    else{
+                        wordsInPositive++;
+                    }
+
                     table.put(word, new TextProcessing.FrequencyTable(0, 0));
                 }
                 else{
                     TextProcessing.FrequencyTable t = table.get(word);
 
-                    if(pair.second == 0){
+                    if(pair.second == 0) {
                         t.negativeOccurrence++;
                         negativeOccurrences++;
                     }
@@ -113,9 +124,17 @@ class NaiveBayes {
             }
         }
 
+        double posCheck = 0;
+        for(Map.Entry<String, TextProcessing.FrequencyTable> entry : table.entrySet()){
+            posCheck += (entry.getValue().positiveOccurrence + 1.0f) / (wordsInPositive + positiveOccurrences);
+        }
+
         this.table = table;
         this.negativeOccurrences = negativeOccurrences;
         this.positiveOccurrences = positiveOccurrences;
+
+        this.positiveCount = positiveCount;
+        this.negativeCount = negativeCount;
     }
 
     public double predict(String tweet) throws IOException {
@@ -130,7 +149,7 @@ class NaiveBayes {
             pred *= lambda(word);
         }
 
-        return pred;
+        return (positiveCount / (float)negativeCount) * pred;
     }
 
     private double lambda(String word) {
@@ -141,8 +160,8 @@ class NaiveBayes {
             return 1;
         }
 
-        posPercent = (freq.positiveOccurrence + 1.0f) / (table.size() + positiveOccurrences);
-        negPercent = (freq.negativeOccurrence + 1.0f) / (table.size() + negativeOccurrences);
+        posPercent = (freq.positiveOccurrence + 1.0f) / (wordsInPositive + positiveOccurrences);
+        negPercent = (freq.negativeOccurrence + 1.0f) / (wordsInNegative + negativeOccurrences);
 
         return posPercent / negPercent;
     }
@@ -150,54 +169,55 @@ class NaiveBayes {
 
 public class Main {
     static List<Pair<List<String>, Integer>> dataset;
+    static int positiveCount, negativeCount;
     public static void main(String[] args) throws IOException {
-//        dataset = new ArrayList<>();
-//
-//        readData("D:\\Source code\\Java\\data\\train pos.txt", 1);
-//        readData("D:\\Source code\\Java\\data\\train neg.txt", 0);
-//
-//        NaiveBayes model = new NaiveBayes(dataset);
-//
-//        FileInputStream fIn = new FileInputStream("D:\\Source code\\Java\\data\\test pos.txt");
-//        String[] data = new String(fIn.readAllBytes()).split("\3");
-//        fIn.close();
-//
-//        int total = data.length;
-//        int hit = 0;
-//
-//        for(String tweet : data) {
-//            double pred = model.predict(tweet);
-//
-//            boolean isPositive = false;
-//            if(pred >= 1.0f){
-//                isPositive = true;
-//            }
-//
-//            if(isPositive){
-//                hit++;
-//            }
-//        }
-//
-//        fIn = new FileInputStream("D:\\Source code\\Java\\data\\test neg.txt");
-//        data = new String(fIn.readAllBytes()).split("\3");
-//        fIn.close();
-//
-//        total += data.length;
-//
-//        for(String tweet : data) {
-//            double pred = model.predict(tweet);
-//
-//            boolean isPositive = false;
-//            if(pred >= 1.0f){
-//                isPositive = true;
-//            }
-//
-//            if(!isPositive){
-//                hit++;
-//            }
-//        }
-//
-//        System.out.println(hit / (float)total * 100 + "%");
+        dataset = new ArrayList<>();
+
+        readData("D:\\Source code\\Java\\data\\train pos.txt", 1);
+        readData("D:\\Source code\\Java\\data\\train neg.txt", 0);
+
+        NaiveBayes model = new NaiveBayes(dataset, positiveCount, negativeCount);
+
+        FileInputStream fIn = new FileInputStream("D:\\Source code\\Java\\data\\test pos.txt");
+        String[] data = new String(fIn.readAllBytes()).split("\3");
+        fIn.close();
+
+        int total = data.length;
+        int hit = 0;
+
+        for(String tweet : data) {
+            double pred = model.predict(tweet);
+
+            boolean isPositive = false;
+            if(pred >= 1.0f){
+                isPositive = true;
+            }
+
+            if(isPositive){
+                hit++;
+            }
+        }
+
+        fIn = new FileInputStream("D:\\Source code\\Java\\data\\test neg.txt");
+        data = new String(fIn.readAllBytes()).split("\3");
+        fIn.close();
+
+        total += data.length;
+
+        for(String tweet : data) {
+            double pred = model.predict(tweet);
+
+            boolean isPositive = false;
+            if(pred >= 1.0f){
+                isPositive = true;
+            }
+
+            if(!isPositive){
+                hit++;
+            }
+        }
+
+        System.out.println(hit / (float)total * 100 + "%");
 
     }
 
@@ -213,5 +233,12 @@ public class Main {
         }
 
         fIn.close();
+
+        if(label == 0){
+            negativeCount = data.length;
+        }
+        else{
+            positiveCount = data.length;
+        }
     }
 }
