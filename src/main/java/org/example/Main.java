@@ -80,11 +80,9 @@ class TextProcessing{
 
 class NaiveBayes {
     private final HashMap<String, TextProcessing.FrequencyTable> table;
-    private final int positiveOccurrences, negativeOccurrences;
-    private int wordsInPositive, wordsInNegative, positiveCount, negativeCount;
+    private final int positiveOccurrences, negativeOccurrences, positiveCount, negativeCount;
+    private int wordsInPositive, wordsInNegative;
 
-    static float checkPos = 0;
-    static float checkNeg = 0;
     NaiveBayes(List<Pair<List<String>, Integer>> dataset, int positiveCount, int negativeCount) {
         HashMap<String, TextProcessing.FrequencyTable> table = new HashMap<>();
 
@@ -92,7 +90,7 @@ class NaiveBayes {
         for(Pair<List<String>, Integer> pair : dataset) {
             for(String word : pair.first) {
                 if(!table.containsKey(word)) {
-                    if(pair.second == 0){
+                    if(pair.second == 0) {
                         wordsInNegative++;
                     }
                     else{
@@ -106,19 +104,19 @@ class NaiveBayes {
 
                     if(pair.second == 0) {
                         t.negativeOccurrence++;
-                        negativeOccurrences++;
                     }
                     else{
                         t.positiveOccurrence++;
-                        positiveOccurrences++;
                     }
                 }
             }
-        }
 
-        double posCheck = 0;
-        for(Map.Entry<String, TextProcessing.FrequencyTable> entry : table.entrySet()){
-            posCheck += (entry.getValue().positiveOccurrence + 1.0f) / (wordsInPositive + positiveOccurrences);
+            if(pair.second == 0){
+                positiveOccurrences += pair.first.size();
+            }
+            else{
+                negativeOccurrences += pair.first.size();
+            }
         }
 
         this.table = table;
