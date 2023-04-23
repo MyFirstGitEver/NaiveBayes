@@ -24,14 +24,6 @@ class TextProcessing{
 
         double positiveOccurrence;
         double negativeOccurrence;
-
-        void calculatePercent(int dPositive, int dNegative){
-            // word order
-            // su lien quan giua cac tu
-            // P(tweet | pos) = tich(P(word | pos))
-            positiveOccurrence /= dPositive;
-            negativeOccurrence /= dNegative;
-        }
     }
 
     static List<String> lemmas(String doc){
