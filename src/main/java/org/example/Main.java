@@ -48,32 +48,40 @@ class TextProcessing{
         return lemmas;
     }
 
-    static void removeStopWordsAndWeirdStrings(List<String> words) throws IOException {
+    static void removeStopWordsAndWeirdStrings(Collection<String> words,
+                                               boolean removeStopwords,
+                                               boolean removeWeird, boolean removeHashTag) throws IOException {
         Set<String> removed = new TreeSet<>();
 
-        for(String word : words){
-//            if(word.equals(":)") || word.equals(":-)") || word.equals(":(") || word.equals(":-(")){
-//                continue;
-//            }
+        if(removeWeird) {
+            for(String word : words) {
+                if(word.length() > 1 && word.charAt(0) == '#') {
+                    removed.add(word);
 
-            if(Pattern.compile("^.*[^a-zA-Z].*$").matcher(word).find()){
-                removed.add(word);
+                    if(!removeHashTag) {
+                        removed.add(word.substring(1));
+                    }
+                }
+
+                if(!Pattern.compile("^[a-zA-Z]+").matcher(word).find()){
+                    removed.add(word);
+                }
             }
         }
 
-        BufferedReader reader = new BufferedReader(new FileReader("english"));
-        String line;
+        if(removeStopwords) {
+            BufferedReader reader = new BufferedReader(new FileReader("english"));
+            String line;
 
-        while((line = reader.readLine()) != null) {
-            if(words.contains(line)){
-                removed.add(line);
+            while((line = reader.readLine()) != null) {
+                if(words.contains(line)){
+                    removed.add(line);
+                }
             }
         }
 
-        for(int i=words.size() - 1;i>=0;i--){
-            if(removed.contains(words.get(i))) {
-                words.remove(i);
-            }
+        for(String word : removed) {
+            words.removeIf(word::equals);
         }
     }
 }
@@ -129,7 +137,7 @@ class NaiveBayes {
 
     public double predict(String tweet) throws IOException {
         List<String> words = TextProcessing.lemmas(tweet);
-        TextProcessing.removeStopWordsAndWeirdStrings(words);
+        TextProcessing.removeStopWordsAndWeirdStrings(words, true, true, false);
 
         Set<String> set = new TreeSet<>(words);
 
@@ -158,17 +166,18 @@ class NaiveBayes {
 }
 
 public class Main {
+    static String path = "D:\\Source code\\Outer data\\tweets-for-naive-bayes\\";
     static List<Pair<List<String>, Integer>> dataset;
     static int positiveCount, negativeCount;
     public static void main(String[] args) throws IOException {
         dataset = new ArrayList<>();
 
-        readData("D:\\Source code\\Java\\data\\train pos.txt", 1);
-        readData("D:\\Source code\\Java\\data\\train neg.txt", 0);
+        readData(path + "train pos.txt", 1);
+        readData(path + "train neg.txt", 0);
 
         NaiveBayes model = new NaiveBayes(dataset, positiveCount, negativeCount);
 
-        FileInputStream fIn = new FileInputStream("D:\\Source code\\Java\\data\\test pos.txt");
+        FileInputStream fIn = new FileInputStream(path + "test pos.txt");
         String[] data = new String(fIn.readAllBytes()).split("\3");
         fIn.close();
 
@@ -178,17 +187,14 @@ public class Main {
         for(String tweet : data) {
             double pred = model.predict(tweet);
 
-            boolean isPositive = false;
-            if(pred >= 1.0f){
-                isPositive = true;
-            }
+            boolean isPositive = pred >= 1.0f;
 
             if(isPositive){
                 hit++;
             }
         }
 
-        fIn = new FileInputStream("D:\\Source code\\Java\\data\\test neg.txt");
+        fIn = new FileInputStream(path + "test neg.txt");
         data = new String(fIn.readAllBytes()).split("\3");
         fIn.close();
 
@@ -217,7 +223,7 @@ public class Main {
 
         for(String tweet : data){
             List<String> words = TextProcessing.lemmas(tweet);
-            TextProcessing.removeStopWordsAndWeirdStrings(words);
+            TextProcessing.removeStopWordsAndWeirdStrings(words, true, true, false);
 
             dataset.add(new Pair<>(words, label));
         }
