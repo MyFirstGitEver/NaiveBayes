@@ -11,6 +11,8 @@ import edu.stanford.nlp.util.Pair;
 import java.io.*;
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +29,12 @@ class TextProcessing{
     }
 
     static List<String> lemmas(String doc){
+        PrintStream err = System.err;
+        System.setErr(new PrintStream(new OutputStream() {
+            public void write(int b) {
+            }
+        }));
+
         Properties props = new Properties();
         props.put("annotators", "tokenize, ssplit, pos, lemma");
 
@@ -45,6 +53,7 @@ class TextProcessing{
             }
         }
 
+        System.setErr(err);
         return lemmas;
     }
 
@@ -95,6 +104,7 @@ class NaiveBayes {
         HashMap<String, TextProcessing.FrequencyTable> table = new HashMap<>();
 
         int positiveOccurrences = 0, negativeOccurrences = 0;
+        int timer = 0;
         for(Pair<List<String>, Integer> pair : dataset) {
             for(String word : pair.first) {
                 if(!table.containsKey(word)) {
@@ -124,6 +134,12 @@ class NaiveBayes {
             }
             else{
                 negativeOccurrences += pair.first.size();
+            }
+
+            timer++;
+
+            if(timer % 100 == 0) {
+                System.out.println(timer + " / " + dataset.size() + " documents processed!");
             }
         }
 
@@ -167,13 +183,51 @@ class NaiveBayes {
 
 public class Main {
     static String path = "D:\\Source code\\Outer data\\tweets-for-naive-bayes\\";
+    static String path2 = "D:\\Source code\\Outer data\\BOW\\word2vec-nlp-tutorial\\labeledTrainData\\";
     static List<Pair<List<String>, Integer>> dataset;
     static int positiveCount, negativeCount;
     public static void main(String[] args) throws IOException {
         dataset = new ArrayList<>();
 
-        readData(path + "train pos.txt", 1);
-        readData(path + "train neg.txt", 0);
+        readData(path2 + " 10_000 reviews.txt",
+                -1, true);
+
+        NaiveBayes model = new NaiveBayes(dataset, positiveCount, negativeCount);
+
+        FileInputStream fIn = new FileInputStream(path2 + "5_000 tests.txt");
+        String[] data = new String(fIn.readAllBytes()).split("\3");
+        fIn.close();
+
+        int total = data.length;
+        int hit = 0, timer = 0;
+
+        for(String tweet : data) {
+            String[] info = tweet.split("\2");
+            double pred = model.predict(info[0]);
+            boolean isPositive = pred >= 1.0f;
+
+            if(isPositive && info[1].equals("1")) {
+                hit++;
+            }
+            else if(!isPositive && info[1].equals("0")){
+                hit++;
+            }
+
+            timer++;
+
+            if(timer % 100 == 0) {
+                System.out.println("Tested on " + timer + " / " + data.length + " documents processed. Hit: " + hit);
+            }
+        }
+
+        System.out.println(hit / (float)total * 100 + "%");
+    }
+
+    static void firstDataset() throws IOException {
+        dataset = new ArrayList<>();
+
+        readData(path + "train pos.txt", 1, false);
+        readData(path + "train neg.txt", 0, false);
 
         NaiveBayes model = new NaiveBayes(dataset, positiveCount, negativeCount);
 
@@ -214,27 +268,57 @@ public class Main {
         }
 
         System.out.println(hit / (float)total * 100 + "%");
-
     }
 
-    static void readData(String fileName, int label) throws IOException {
+    static void readData(String fileName, int label, boolean labelIntegrated) throws IOException {
         FileInputStream fIn = new FileInputStream(fileName);
         String[] data = new String(fIn.readAllBytes()).split("\3");
 
-        for(String tweet : data){
-            List<String> words = TextProcessing.lemmas(tweet);
+        int timer = 0;
+        for(String tweet : data) {
+            String text;
+            int realLabel;
+
+            if(!labelIntegrated) {
+                text = tweet;
+                realLabel = label;
+            }
+            else {
+                String[] info = tweet.split("\2");
+
+                text = info[0];
+                realLabel = Integer.parseInt(info[1]);
+
+                if(realLabel == 0) {
+                    negativeCount++;
+                }
+                else {
+                    positiveCount++;
+                }
+            }
+
+            List<String> words = TextProcessing.lemmas(text);
             TextProcessing.removeStopWordsAndWeirdStrings(words, true, true, false);
 
-            dataset.add(new Pair<>(words, label));
+            dataset.add(new Pair<>(words, realLabel));
+
+            timer++;
+
+            if(timer % 100 == 0) {
+                System.out.println(timer + " / " + data.length + " scanned!");
+            }
         }
 
         fIn.close();
+        System.out.println("----------Training time!-------------\n\n");
 
-        if(label == 0){
-            negativeCount = data.length;
-        }
-        else{
-            positiveCount = data.length;
+        if(!labelIntegrated) {
+            if(label == 0){
+                negativeCount = data.length;
+            }
+            else{
+                positiveCount = data.length;
+            }
         }
     }
 }

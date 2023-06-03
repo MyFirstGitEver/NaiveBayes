@@ -1,0 +1,265 @@
+5:12:20 PM: Executing ':Main.main()'...
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+
+> Task :Main.main()
+100 / 10000 scanned!
+200 / 10000 scanned!
+300 / 10000 scanned!
+400 / 10000 scanned!
+500 / 10000 scanned!
+600 / 10000 scanned!
+700 / 10000 scanned!
+800 / 10000 scanned!
+900 / 10000 scanned!
+1000 / 10000 scanned!
+1100 / 10000 scanned!
+1200 / 10000 scanned!
+1300 / 10000 scanned!
+1400 / 10000 scanned!
+1500 / 10000 scanned!
+1600 / 10000 scanned!
+1700 / 10000 scanned!
+1800 / 10000 scanned!
+1900 / 10000 scanned!
+2000 / 10000 scanned!
+2100 / 10000 scanned!
+2200 / 10000 scanned!
+2300 / 10000 scanned!
+2400 / 10000 scanned!
+2500 / 10000 scanned!
+2600 / 10000 scanned!
+2700 / 10000 scanned!
+2800 / 10000 scanned!
+2900 / 10000 scanned!
+3000 / 10000 scanned!
+3100 / 10000 scanned!
+3200 / 10000 scanned!
+3300 / 10000 scanned!
+3400 / 10000 scanned!
+3500 / 10000 scanned!
+3600 / 10000 scanned!
+3700 / 10000 scanned!
+3800 / 10000 scanned!
+3900 / 10000 scanned!
+4000 / 10000 scanned!
+4100 / 10000 scanned!
+4200 / 10000 scanned!
+4300 / 10000 scanned!
+4400 / 10000 scanned!
+4500 / 10000 scanned!
+4600 / 10000 scanned!
+4700 / 10000 scanned!
+4800 / 10000 scanned!
+4900 / 10000 scanned!
+5000 / 10000 scanned!
+5100 / 10000 scanned!
+5200 / 10000 scanned!
+5300 / 10000 scanned!
+5400 / 10000 scanned!
+5500 / 10000 scanned!
+5600 / 10000 scanned!
+5700 / 10000 scanned!
+5800 / 10000 scanned!
+5900 / 10000 scanned!
+6000 / 10000 scanned!
+6100 / 10000 scanned!
+6200 / 10000 scanned!
+6300 / 10000 scanned!
+6400 / 10000 scanned!
+6500 / 10000 scanned!
+6600 / 10000 scanned!
+6700 / 10000 scanned!
+6800 / 10000 scanned!
+6900 / 10000 scanned!
+7000 / 10000 scanned!
+7100 / 10000 scanned!
+7200 / 10000 scanned!
+7300 / 10000 scanned!
+7400 / 10000 scanned!
+7500 / 10000 scanned!
+7600 / 10000 scanned!
+7700 / 10000 scanned!
+7800 / 10000 scanned!
+7900 / 10000 scanned!
+8000 / 10000 scanned!
+8100 / 10000 scanned!
+8200 / 10000 scanned!
+8300 / 10000 scanned!
+8400 / 10000 scanned!
+8500 / 10000 scanned!
+8600 / 10000 scanned!
+8700 / 10000 scanned!
+8800 / 10000 scanned!
+8900 / 10000 scanned!
+9000 / 10000 scanned!
+9100 / 10000 scanned!
+9200 / 10000 scanned!
+9300 / 10000 scanned!
+9400 / 10000 scanned!
+9500 / 10000 scanned!
+9600 / 10000 scanned!
+9700 / 10000 scanned!
+9800 / 10000 scanned!
+9900 / 10000 scanned!
+10000 / 10000 scanned!
+----------Training time!-------------
+
+
+100 / 10000 documents processed!
+200 / 10000 documents processed!
+300 / 10000 documents processed!
+400 / 10000 documents processed!
+500 / 10000 documents processed!
+600 / 10000 documents processed!
+700 / 10000 documents processed!
+800 / 10000 documents processed!
+900 / 10000 documents processed!
+1000 / 10000 documents processed!
+1100 / 10000 documents processed!
+1200 / 10000 documents processed!
+1300 / 10000 documents processed!
+1400 / 10000 documents processed!
+1500 / 10000 documents processed!
+1600 / 10000 documents processed!
+1700 / 10000 documents processed!
+1800 / 10000 documents processed!
+1900 / 10000 documents processed!
+2000 / 10000 documents processed!
+2100 / 10000 documents processed!
+2200 / 10000 documents processed!
+2300 / 10000 documents processed!
+2400 / 10000 documents processed!
+2500 / 10000 documents processed!
+2600 / 10000 documents processed!
+2700 / 10000 documents processed!
+2800 / 10000 documents processed!
+2900 / 10000 documents processed!
+3000 / 10000 documents processed!
+3100 / 10000 documents processed!
+3200 / 10000 documents processed!
+3300 / 10000 documents processed!
+3400 / 10000 documents processed!
+3500 / 10000 documents processed!
+3600 / 10000 documents processed!
+3700 / 10000 documents processed!
+3800 / 10000 documents processed!
+3900 / 10000 documents processed!
+4000 / 10000 documents processed!
+4100 / 10000 documents processed!
+4200 / 10000 documents processed!
+4300 / 10000 documents processed!
+4400 / 10000 documents processed!
+4500 / 10000 documents processed!
+4600 / 10000 documents processed!
+4700 / 10000 documents processed!
+4800 / 10000 documents processed!
+4900 / 10000 documents processed!
+5000 / 10000 documents processed!
+5100 / 10000 documents processed!
+5200 / 10000 documents processed!
+5300 / 10000 documents processed!
+5400 / 10000 documents processed!
+5500 / 10000 documents processed!
+5600 / 10000 documents processed!
+5700 / 10000 documents processed!
+5800 / 10000 documents processed!
+5900 / 10000 documents processed!
+6000 / 10000 documents processed!
+6100 / 10000 documents processed!
+6200 / 10000 documents processed!
+6300 / 10000 documents processed!
+6400 / 10000 documents processed!
+6500 / 10000 documents processed!
+6600 / 10000 documents processed!
+6700 / 10000 documents processed!
+6800 / 10000 documents processed!
+6900 / 10000 documents processed!
+7000 / 10000 documents processed!
+7100 / 10000 documents processed!
+7200 / 10000 documents processed!
+7300 / 10000 documents processed!
+7400 / 10000 documents processed!
+7500 / 10000 documents processed!
+7600 / 10000 documents processed!
+7700 / 10000 documents processed!
+7800 / 10000 documents processed!
+7900 / 10000 documents processed!
+8000 / 10000 documents processed!
+8100 / 10000 documents processed!
+8200 / 10000 documents processed!
+8300 / 10000 documents processed!
+8400 / 10000 documents processed!
+8500 / 10000 documents processed!
+8600 / 10000 documents processed!
+8700 / 10000 documents processed!
+8800 / 10000 documents processed!
+8900 / 10000 documents processed!
+9000 / 10000 documents processed!
+9100 / 10000 documents processed!
+9200 / 10000 documents processed!
+9300 / 10000 documents processed!
+9400 / 10000 documents processed!
+9500 / 10000 documents processed!
+9600 / 10000 documents processed!
+9700 / 10000 documents processed!
+9800 / 10000 documents processed!
+9900 / 10000 documents processed!
+10000 / 10000 documents processed!
+Tested on 100 / 5000 documents processed. Hit: 87
+Tested on 200 / 5000 documents processed. Hit: 166
+Tested on 300 / 5000 documents processed. Hit: 245
+Tested on 400 / 5000 documents processed. Hit: 327
+Tested on 500 / 5000 documents processed. Hit: 410
+Tested on 600 / 5000 documents processed. Hit: 493
+Tested on 700 / 5000 documents processed. Hit: 580
+Tested on 800 / 5000 documents processed. Hit: 663
+Tested on 900 / 5000 documents processed. Hit: 749
+Tested on 1000 / 5000 documents processed. Hit: 835
+Tested on 1100 / 5000 documents processed. Hit: 923
+Tested on 1200 / 5000 documents processed. Hit: 1002
+Tested on 1300 / 5000 documents processed. Hit: 1084
+Tested on 1400 / 5000 documents processed. Hit: 1167
+Tested on 1500 / 5000 documents processed. Hit: 1246
+Tested on 1600 / 5000 documents processed. Hit: 1325
+Tested on 1700 / 5000 documents processed. Hit: 1409
+Tested on 1800 / 5000 documents processed. Hit: 1489
+Tested on 1900 / 5000 documents processed. Hit: 1570
+Tested on 2000 / 5000 documents processed. Hit: 1647
+Tested on 2100 / 5000 documents processed. Hit: 1725
+Tested on 2200 / 5000 documents processed. Hit: 1793
+Tested on 2300 / 5000 documents processed. Hit: 1869
+Tested on 2400 / 5000 documents processed. Hit: 1952
+Tested on 2500 / 5000 documents processed. Hit: 2036
+Tested on 2600 / 5000 documents processed. Hit: 2117
+Tested on 2700 / 5000 documents processed. Hit: 2199
+Tested on 2800 / 5000 documents processed. Hit: 2277
+Tested on 2900 / 5000 documents processed. Hit: 2358
+Tested on 3000 / 5000 documents processed. Hit: 2442
+Tested on 3100 / 5000 documents processed. Hit: 2527
+Tested on 3200 / 5000 documents processed. Hit: 2611
+Tested on 3300 / 5000 documents processed. Hit: 2691
+Tested on 3400 / 5000 documents processed. Hit: 2772
+Tested on 3500 / 5000 documents processed. Hit: 2853
+Tested on 3600 / 5000 documents processed. Hit: 2930
+Tested on 3700 / 5000 documents processed. Hit: 3018
+Tested on 3800 / 5000 documents processed. Hit: 3106
+Tested on 3900 / 5000 documents processed. Hit: 3188
+Tested on 4000 / 5000 documents processed. Hit: 3270
+Tested on 4100 / 5000 documents processed. Hit: 3353
+Tested on 4200 / 5000 documents processed. Hit: 3431
+Tested on 4300 / 5000 documents processed. Hit: 3515
+Tested on 4400 / 5000 documents processed. Hit: 3593
+Tested on 4500 / 5000 documents processed. Hit: 3673
+Tested on 4600 / 5000 documents processed. Hit: 3756
+Tested on 4700 / 5000 documents processed. Hit: 3837
+Tested on 4800 / 5000 documents processed. Hit: 3914
+Tested on 4900 / 5000 documents processed. Hit: 3995
+Tested on 5000 / 5000 documents processed. Hit: 4066
+81.32%
+
+BUILD SUCCESSFUL in 5m 8s
+2 actionable tasks: 2 executed
+5:17:28 PM: Execution finished ':Main.main()'.
